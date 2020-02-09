@@ -22,7 +22,7 @@ function convertString(src){
   while (regexp.exec(tempString) !== null) {
     const slicedString = tempString.slice(regexp.lastIndex - term, regexp.lastIndex + 26)
     const removedWhiteSpaceString = slicedString.replace(whiteSpace, '')
-    const convertResultString = removedWhiteSpaceString.replace('->', '-->')
+    const convertResultTimeLineString = removedWhiteSpaceString.replace('->', '-->')
     const start = tempString.match(slicedString).index
     const end = start + slicedString.length
     const cursor = regexp.lastIndex - 4
@@ -32,7 +32,7 @@ function convertString(src){
     }
     const preFixStr = tempString.slice(cursor, start)
     const postFixStr = tempString.slice(end, tempString.length)
-    tempString = agoString + preFixStr + convertResultString + postFixStr
+    tempString = agoString + preFixStr + convertResultTimeLineString + postFixStr
   }
   return tempString
 }

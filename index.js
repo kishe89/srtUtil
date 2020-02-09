@@ -9,6 +9,7 @@ const PATH_DIR_OUTPUT = './output'
 const PREFIX_LOG = '-------'
 const regexp = new RegExp('(([0-9])\\n)(([0-9])\\w+)', 'g')
 const whiteSpace = new RegExp(' ','g')
+const extenstion = '.srt'
 function isEmptyDirectory(inputFileList){
   if(inputFileList === null || inputFileList === undefined){
     throw new Error('isEmptyDirectory function invalid parameter(inputFileList). inputFileList should not null or undefined')
@@ -42,8 +43,9 @@ async function start(){
   }
   const contents = await Promise.all(inputFileList.map((file) => readFile(path.join(PATH_DIR_INPUT, file),{encoding: 'utf-8'})))
   const convert_Contents = contents.map((content) => convertString(content))
-  await Promise.all(inputFileList.map((file, index) => writeFile(path.join(PATH_DIR_OUTPUT, file.slice(0, file.length - 3) + 'srt'), convert_Contents[index])))
-  return inputFileList
+  const outpufFilesList = inputFileList.map((file) => path.join(PATH_DIR_OUTPUT, file.slice(0, file.length - 4) + '_convert' + '_' + Date.now() + extenstion))
+  await Promise.all(inputFileList.map((file, index) => writeFile(outpufFilesList[index], convert_Contents[index])))
+  return outpufFilesList
 }
 
 start()

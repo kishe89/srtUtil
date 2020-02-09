@@ -17,24 +17,24 @@ function isEmptyDirectory(inputFileList){
   return inputFileList.length === 0
 }
 function convertString(src){
-  let tempString = src
+  let result = src
   const term = 2
-  while (regexp.exec(tempString) !== null) {
-    const slicedString = tempString.slice(regexp.lastIndex - term, regexp.lastIndex + 26)
+  while (regexp.exec(result) !== null) {
+    const slicedString = result.slice(regexp.lastIndex - term, regexp.lastIndex + 26)
     const removedWhiteSpaceString = slicedString.replace(whiteSpace, '')
-    const convertResultTimeLineString = removedWhiteSpaceString.replace('->', '-->')
-    const start = tempString.match(slicedString).index
+    const convertTimeLineString = removedWhiteSpaceString.replace('->', '-->')
+    const start = result.match(slicedString).index
     const end = start + slicedString.length
     const cursor = regexp.lastIndex - 4
     let agoString = ''
     if(cursor !== 0){
-      agoString = tempString.slice(0, cursor)
+      agoString = result.slice(0, cursor)
     }
-    const preFixStr = tempString.slice(cursor, start)
-    const postFixStr = tempString.slice(end, tempString.length)
-    tempString = agoString + preFixStr + convertResultTimeLineString + postFixStr
+    const preFixStr = result.slice(cursor, start)
+    const postFixStr = result.slice(end, result.length)
+    result = agoString + preFixStr + convertTimeLineString + postFixStr
   }
-  return tempString
+  return result
 }
 async function start(){
   const inputFileList = await readdir(PATH_DIR_INPUT)

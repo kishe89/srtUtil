@@ -1,0 +1,22 @@
+{
+  "name": "character_convert",
+  "version": "0.0.0",
+  "description": "change valid result from google translator output",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./index"
+  },
+  "keywords": [
+    "regexp",
+    "youtube",
+    "google",
+    "translator"
+  ],
+  "author": "Ji Woon Kim",
+  "license": "MIT",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "util": "^0.12.1"
+  }
+}

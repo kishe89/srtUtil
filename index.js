@@ -6,9 +6,11 @@ const readFile = util.promisify(fs.readFile)
 const readdir = util.promisify(fs.readdir)
 const PATH_DIR_INPUT = './input'
 const PATH_DIR_OUTPUT = './output'
+const ENG_ESCAPE_STR = 'One'
 const PREFIX_LOG = '-------'
 const regexp = new RegExp('(([0-9])\\n)(([0-9])\\w+)', 'g')
 const whiteSpace = new RegExp(' ','g')
+const engExp = new RegExp('One\\n([0-9]){0,2}\\w+ :')
 const extenstion = '.srt'
 function isEmptyDirectory(inputFileList){
   if(inputFileList === null || inputFileList === undefined){
@@ -19,6 +21,9 @@ function isEmptyDirectory(inputFileList){
 function convertString(src){
   let result = src
   const term = 2
+  if(engExp.exec(src)){
+    result = '1' + result.slice(engExp.lastIndex + ENG_ESCAPE_STR.length, result.length)
+  }
   while (regexp.exec(result) !== null) {
     const slicedString = result.slice(regexp.lastIndex - term, regexp.lastIndex + 26)
     const removedWhiteSpaceString = slicedString.replace(whiteSpace, '')
